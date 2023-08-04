@@ -25,24 +25,12 @@ jobs:
     - name: Installing dependencies
       run: sudo apt install xfce4 xfce4-terminal dbus-x11 tigervnc-standalone-server -y
 
-    - name: Setting up VNC passwd
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y expect
-        echo '#!/usr/bin/expect -f
-        set password "13467913"
-        spawn vncpasswd
-        expect "Password:"
-        send "$password\r"
-        expect "Verify:"
-        send "$password\r"
-        expect eof' > $HOME/vncpasswd_expect.sh
-        chmod +x $HOME/vncpasswd_expect.sh
-        $HOME/vncpasswd_expect.sh
-
+    - name: Setting up VNC password
+      run: echo "13467913" | vncpasswd -f > $HOME/.vnc/passwd
 
     - name: Starting VNC server
       run: vncserver -geometry 2370x1080 -localhost no
+
 
     - name: Create Tunnel
       run: ./ngrok tcp 5901
