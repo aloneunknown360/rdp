@@ -29,10 +29,10 @@ jobs:
       run: mkdir -p ~/.vnc && echo "#!/bin/base\n xrdb $HOME/.Xresources\n startxfce4" > ~/.vnc/xstartup
     - name: setting up
       run: echo "vncserver -geometry 1600x900 -name remote-desktop :1" > /usr/local/bin/vnc-start
-      run: echo "vncserver -kill :*" > /usr/local/bin/vnc-stop
-      run: chmod +x ~/.vnc/xstartup
-      run: chmod +x /usr/local/bin/*
-      run: vnc-start
+    - run: echo "vncserver -kill :*" > /usr/local/bin/vnc-stop
+    - run: chmod +x ~/.vnc/xstartup
+    - run: chmod +x /usr/local/bin/*
+    - run: vnc-start
 
     - name: Create Tunnel
       run: ./ngrok tcp 5901
