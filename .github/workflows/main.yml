@@ -23,7 +23,7 @@ jobs:
       run: cd /
         
     - name: Installing dependencies
-      run: sudo apt install tigervnc-standalone-server wget -y
+      run: sudo apt install xfce4 tigervnc-standalone-server wget -y
 
     - name: Setup the necessary files
       run: mkdir -p ~/.vnc
