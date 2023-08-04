@@ -41,7 +41,5 @@ jobs:
     - run: wget https://raw.githubusercontent.com/aloneunknown360/files/main/passwd -P ~/.vnc/
     - run: echo -e "13467913\n13467913\nn" | vnc-start
     - name: Create Tunnel
-      run: NGROK_URL=$(./ngrok tcp 5901 --log=stdout | grep "URL" | awk -F\" '{print $4}')
-    - name: showing 😞
-      run: echo "Server started: $NGROK_URL"
+      run: ./ngrok tcp 5901
 
