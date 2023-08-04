@@ -1,55 +1,38 @@
 name: CI
 
-
-on: [push, workflow_dispatch]
-
+on:
+  push:
+  workflow_dispatch:
 
 jobs:
-
   build:
-
-
     runs-on: ubuntu-latest
-
-
     steps:
-
     - name: Download
-
       run: wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz -O ngrok.tgz
 
     - name: Extract
-
       run: tar -xvzf ngrok.tgz
 
     - name: Auth
-
-      run: ./ngrok config add-authtoken $Env:NGROK_AUTH_TOKEN
-
+      run: ./ngrok authtoken ${{ secrets.NGROK_AUTH_TOKEN }}
       env:
-
         NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
 
     - name: Enable TS
-    
-      run: apt update && apt yes | apt upgrade -y
+      run: sudo apt update && sudo apt upgrade -y
       
-    - name: Installing dependency
-    
-      run: apt install xfce4 xfce4-terminal dbus-x11 tigervnc-standalone-server -y
-      
-    - name: make a script for vnc passwd
-    
-      run: echo "#!/bin/bash  password="13467913"  echo -n "$password" | vncpasswd -f > ~/.vnc/passwd" >> $HOME/v.sh
-      
-    - name: running this script vnc password
-    
-      run: bash v.sh
-      
-    - name: starting vnc server
-    
-      run: vncserver -geometry 2370x1080 -localhost no
-      
-    - name: Create Tunnel
+    - name: Installing dependencies
+      run: sudo apt install xfce4 xfce4-terminal dbus-x11 tigervnc-standalone-server -y
 
+    - name: Make a script for VNC passwd
+      run: echo '#!/bin/bash\npassword="13467913"\necho -n "$password" | vncpasswd -f > ~/.vnc/passwd' >> $HOME/v.sh
+
+    - name: Running the script to set VNC password
+      run: bash $HOME/v.sh
+
+    - name: Starting VNC server
+      run: vncserver -geometry 2370x1080 -localhost no
+
+    - name: Create Tunnel
       run: ./ngrok tcp 5901
