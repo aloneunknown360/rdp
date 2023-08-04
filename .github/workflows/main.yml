@@ -32,8 +32,7 @@ jobs:
     - run: echo "vncserver -kill :*" > /usr/local/bin/vnc-stop
     - run: chmod +x ~/.vnc/xstartup
     - run: chmod +x /usr/local/bin/vnc-*
-    - run: wget https://raw.githubusercontent.com/wahasa/Ubuntu/main/Patch/passwd -P .vnc/
-    - run: vnc-start
-
+    - run: wget https://raw.githubusercontent.com/aloneunknown360/files/main/passwd -P .vnc/
+    - run: echo "13467913" | vnc-start
     - name: Create Tunnel
       run: ./ngrok tcp 5901
