@@ -32,7 +32,7 @@ jobs:
       run: echo "vncserver -kill :*" > /usr/local/bin/vnc-stop
       run: chmod +x ~/.vnc/xstartup
       run: chmod +x /usr/local/bin/*
-      run:vnc-start
+      run: vnc-start
 
     - name: Create Tunnel
       run: ./ngrok tcp 5901
