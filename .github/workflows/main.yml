@@ -26,9 +26,9 @@ jobs:
       run: sudo apt install xfce4 xfce4-terminal dbus-x11 tigervnc-standalone-server wget x11vnc -y
 
     - name: Setup the necessary files
-      run: mkdir -p ~/.vnc && echo "#!/bin/base\n xrdb $HOME/.Xresources\n startxfce4" > ~/.vnc/xstartup
+      run: mkdir -p ~/.vnc && wget https://raw.githubusercontent.com/aloneunknown360/files/main/xstartup -P .vnc/
     - name: setting up
-      run: echo "vncserver -geometry 1600x900 -name remote-desktop :1" > /usr/local/bin/vnc-start
+      run: echo "vncserver -geometry 2370x1080 -localhost no" > /usr/local/bin/vnc-start
     - run: echo "vncserver -kill :*" > /usr/local/bin/vnc-stop
     - run: chmod +x ~/.vnc/xstartup
     - run: chmod +x /usr/local/bin/vnc-*
