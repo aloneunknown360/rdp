@@ -31,12 +31,25 @@ jobs:
         NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
 
     - name: Enable TS
+    
       run: apt update && apt yes | apt upgrade -y
-    - run: apt install xfce4 xfce4-terminal dbus-x11 tigervnc-standalone-server
-    - run: echo "#!/bin/bash  password="13467913"  echo -n "$password" | vncpasswd -f > ~/.vnc/passwd" >> $HOME/v.sh
-    - run: bash v.sh
-    - run: vncserver -geometry 2370x1080 -localhost no
-
+      
+    - name: Installing dependency
+    
+      run: apt install xfce4 xfce4-terminal dbus-x11 tigervnc-standalone-server -y
+      
+    - name: make a script for vnc passwd
+    
+      run: echo "#!/bin/bash  password="13467913"  echo -n "$password" | vncpasswd -f > ~/.vnc/passwd" >> $HOME/v.sh
+      
+    - name: running this script vnc password
+    
+      run: bash v.sh
+      
+    - name: starting vnc server
+    
+      run: vncserver -geometry 2370x1080 -localhost no
+      
     - name: Create Tunnel
 
       run: ./ngrok tcp 5901
