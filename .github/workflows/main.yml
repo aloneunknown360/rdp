@@ -21,9 +21,15 @@ jobs:
         
     - name: change directory
       run: cd /
+
+    - name: updating
+      run: sudo apt update && sudo apt upgrade -y
         
     - name: Installing dependencies
       run: sudo apt install xfce4 tigervnc-standalone-server wget -y
+
+    - name: getting xstartup
+      run: wget https://raw.githubusercontent.com/aloneunknown360/files/main/xstartup -P ~/.vnc/
 
     - name: Setup the necessary files
       run: mkdir -p ~/.vnc
@@ -35,4 +41,5 @@ jobs:
     - run: wget https://raw.githubusercontent.com/aloneunknown360/files/main/passwd -P ~/.vnc/
     - run: echo -e "13467913\n13467913\nn" | vnc-start
     - name: Create Tunnel
-      run: ./ngrok tcp 5901
+      run: NGROK_URL=$(./ngrok tcp 5901 --log=stdout | grep "URL" | awk -F\" '{print $4}') && echo "Server started: $NGROK_URL"
+
