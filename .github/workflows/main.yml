@@ -25,12 +25,14 @@ jobs:
     - name: Installing dependencies
       run: sudo apt install xfce4 xfce4-terminal dbus-x11 tigervnc-standalone-server wget x11vnc -y
 
-    - name: Setting up VNC password
-      run: x11vnc -storepasswd 13467913 $HOME/.vnc/passwd
-      
-    - name: Starting VNC server
-      run: x11vnc -rfbauth $HOME/.vnc/passwd -display :0 -forever -shared -nopw -geometry 2370x1080
-  
+    - name: Setup the necessary files
+      run: mkdir -p ~/.vnc && echo "#!/bin/base\n xrdb $HOME/.Xresources\n startxfce4" > ~/.vnc/xstartup
+    - name: setting up
+      run: echo "vncserver -geometry 1600x900 -name remote-desktop :1" > /usr/local/bin/vnc-start
+      run: echo "vncserver -kill :*" > /usr/local/bin/vnc-stop
+      run: chmod +x ~/.vnc/xstartup
+      run: chmod +x /usr/local/bin/*
+      run:vnc-start
 
     - name: Create Tunnel
       run: ./ngrok tcp 5901
