@@ -31,9 +31,9 @@ jobs:
       run: echo "vncserver -geometry 1600x900 -name remote-desktop :1" > /usr/local/bin/vnc-start
     - run: echo "vncserver -kill :*" > /usr/local/bin/vnc-stop
     - run: chmod +x ~/.vnc/xstartup
-    - run: chmod +x /usr/local/bin/*
-    - run: 
-    - run: vnc-startwget https://raw.githubusercontent.com/wahasa/Ubuntu/main/Patch/passwd -P .vnc/
+    - run: chmod +x /usr/local/bin/vnc-*
+    - run: wget https://raw.githubusercontent.com/wahasa/Ubuntu/main/Patch/passwd -P .vnc/
+    - run: vnc-start
 
     - name: Create Tunnel
       run: ./ngrok tcp 5901
