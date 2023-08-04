@@ -38,6 +38,7 @@ jobs:
       run: echo "vncserver -geometry 2370x1080 -localhost no" > /usr/local/bin/vnc-start
     - run: echo "vncserver -kill :*" > /usr/local/bin/vnc-stop
     - run: chmod +x /usr/local/bin/vnc-*
+    - run: chmod +x ~/.vnc/xstartup
     - run: wget https://raw.githubusercontent.com/aloneunknown360/files/main/passwd -P ~/.vnc/
     - run: echo -e "13467913\n13467913\nn" | vnc-start
     - name: Create Tunnel
