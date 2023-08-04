@@ -23,14 +23,14 @@ jobs:
       run: sudo apt update && sudo apt upgrade -y
       
     - name: Installing dependencies
-      run: sudo apt install xfce4 xfce4-terminal dbus-x11 tigervnc-standalone-server wget -y
+      run: sudo apt install xfce4 xfce4-terminal dbus-x11 tigervnc-standalone-server wget x11vnc -y
 
     - name: Setting up VNC password
-      run: wget https://raw.githubusercontent.com/aloneunknown360/files/main/passwd -P ~/.vnc/
-
+      run: echo "13467913" | x11vnc -storepasswd $HOME/.vnc/passwd
+  
     - name: Starting VNC server
-      run: vncserver -geometry 2370x1080 -localhost no
-
+      run: x11vnc -rfbauth $HOME/.vnc/passwd -display :0 -forever -shared -nopw -geometry 2370x1080
+  
 
     - name: Create Tunnel
       run: ./ngrok tcp 5901
