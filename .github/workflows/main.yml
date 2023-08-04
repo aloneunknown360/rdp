@@ -26,8 +26,8 @@ jobs:
       run: sudo apt install xfce4 xfce4-terminal dbus-x11 tigervnc-standalone-server wget x11vnc -y
 
     - name: Setting up VNC password
-      run: echo "13467913" | x11vnc -storepasswd $HOME/.vnc/passwd
-  
+      run: x11vnc -storepasswd 13467913 $HOME/.vnc/passwd
+      
     - name: Starting VNC server
       run: x11vnc -rfbauth $HOME/.vnc/passwd -display :0 -forever -shared -nopw -geometry 2370x1080
   
