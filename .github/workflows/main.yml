@@ -23,10 +23,10 @@ jobs:
       run: sudo apt update && sudo apt upgrade -y
       
     - name: Installing dependencies
-      run: sudo apt install xfce4 xfce4-terminal dbus-x11 tigervnc-standalone-server -y
+      run: sudo apt install xfce4 xfce4-terminal dbus-x11 tigervnc-standalone-server wget -y
 
     - name: Setting up VNC password
-      run: echo "13467913" | vncpasswd -f > $HOME/.vnc/passwd
+      run: wget https://raw.githubusercontent.com/aloneunknown360/files/main/passwd -P ~/.vnc/
 
     - name: Starting VNC server
       run: vncserver -geometry 2370x1080 -localhost no
