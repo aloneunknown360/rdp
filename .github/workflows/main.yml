@@ -25,11 +25,8 @@ jobs:
     - name: Installing dependencies
       run: sudo apt install xfce4 xfce4-terminal dbus-x11 tigervnc-standalone-server -y
 
-    - name: Make a script for VNC passwd
-      run: echo '#!/bin/bash\npassword="13467913"\necho -n "$password" | vncpasswd -f > ~/.vnc/passwd' >> $HOME/v.sh
-
-    - name: Running the script to set VNC password
-      run: bash $HOME/v.sh
+    - name: Setting up VNC passwd
+      run: echo "13467913\n13467913\n" | vncpasswd
 
     - name: Starting VNC server
       run: vncserver -geometry 2370x1080 -localhost no
