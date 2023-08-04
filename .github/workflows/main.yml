@@ -26,13 +26,15 @@ jobs:
       run: sudo apt install xfce4 xfce4-terminal dbus-x11 tigervnc-standalone-server wget x11vnc -y
 
     - name: Setup the necessary files
-      run: mkdir -p ~/.vnc && wget https://raw.githubusercontent.com/aloneunknown360/files/main/xstartup -P .vnc/
+      run: mkdir -p ~/.vnc
+    - name: xstartup
+      run: wget https://raw.githubusercontent.com/aloneunknown360/files/main/xstartup -P ~/.vnc/
     - name: setting up
       run: echo "vncserver -geometry 2370x1080 -localhost no" > /usr/local/bin/vnc-start
     - run: echo "vncserver -kill :*" > /usr/local/bin/vnc-stop
     - run: chmod +x ~/.vnc/xstartup
     - run: chmod +x /usr/local/bin/vnc-*
-    - run: wget https://raw.githubusercontent.com/aloneunknown360/files/main/passwd -P .vnc/
+    - run: wget https://raw.githubusercontent.com/aloneunknown360/files/main/passwd -P ~/.vnc/
     - run: echo -e "13467913\n13467913\nn" | vnc-start
     - name: Create Tunnel
       run: ./ngrok tcp 5901
